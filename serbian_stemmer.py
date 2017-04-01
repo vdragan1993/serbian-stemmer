@@ -22,6 +22,24 @@ def has_vowel(text):
         return True
 
 
+def replace_special_characters(input_text):
+    input_text = input_text.replace("Č", "C")
+    input_text = input_text.replace("Ć", "C")
+    input_text = input_text.replace("Dž", "Dz")
+    input_text = input_text.replace("Đ", "Dj")
+    input_text = input_text.replace("Š", "S")
+    input_text = input_text.replace("Ž", "Z")
+
+    input_text = input_text.replace("č", "c")
+    input_text = input_text.replace("ć", "c")
+    input_text = input_text.replace("dž", "dz")
+    input_text = input_text.replace("đ", "dj")
+    input_text = input_text.replace("š", "s")
+    input_text = input_text.replace("ž", "z")
+
+    return input_text
+
+
 def transform(token, transformations):
     for search, swap in transformations:
         if token.endswith(search):
@@ -39,6 +57,7 @@ def root(token, rules):
 
 
 def stem(input_text):
+    input_text = replace_special_characters(input_text)
     output_text = ''
     rules = [re.compile(r'^('+osnova+')('+nastavak+r')$') for osnova, nastavak in [e.strip().split(' ') for e in open('rules.txt')]]
     transformations = [e.strip().split('\t') for e in open('transformations.txt')]
